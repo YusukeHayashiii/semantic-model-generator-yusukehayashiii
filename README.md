@@ -1,5 +1,10 @@
 # semantic-model-generator
 
+> [!NOTE]
+> 元のリポジトリに.devcontainerディレクトリを加え、Dockerコンテナを作成しコンテナ内部でStreamlitのアプリを起動するようにしています。
+> VSCodeのRemote-Containersを使用していますが、docker-compose upでも起動できると思います。
+
+
 The `Semantic Model Generator` is used to generate a semantic model for use in your Snowflake account.
 
 You can generate semantic models through our Streamlit app, the command line, or directly in your Python code.
@@ -9,21 +14,67 @@ If you want to see what a semantic model looks like, skip to [Examples](#example
 
 ## Table of Contents
 
-* [Table of Contents](#table-of-contents)
-* [Setup](#setup)
-* [Streamlit App](#streamlit-app)
-* [CLI Tool](#cli-tool)
-    + [Generation](#generation)
-    + [Validation](#validation)
-* [Python](#python)
-    + [Generation](#generation-1)
-    + [Validation](#validation-1)
-* [Usage](#usage)
-    + [Semantic Model Context Length Constraints](#semantic-model-context-length-constraints)
-    + [Auto-Generated Descriptions](#auto-generated-descriptions)
-    + [Additional Fields to Fill Out](#additional-fields-to-fill-out)
-* [Examples](#examples)
-* [Release](#release)
+- [semantic-model-generator](#semantic-model-generator)
+  - [Table of Contents](#table-of-contents)
+  - [custom](#custom)
+    - [.envファイルの作成](#envファイルの作成)
+    - [devcontainer.jsonの編集](#devcontainerjsonの編集)
+    - [コンテナの作成](#コンテナの作成)
+  - [Setup](#setup)
+  - [Streamlit App](#streamlit-app)
+    - [Partner Support](#partner-support)
+  - [CLI Tool](#cli-tool)
+    - [Generation](#generation)
+    - [Validation](#validation)
+  - [Python](#python)
+    - [Generation](#generation-1)
+    - [Validation](#validation-1)
+  - [Usage](#usage)
+    - [Semantic Model Context Length Constraints](#semantic-model-context-length-constraints)
+    - [Auto-Generated Descriptions](#auto-generated-descriptions)
+    - [Additional Fields to Fill Out](#additional-fields-to-fill-out)
+    - [Partner Semantic Support](#partner-semantic-support)
+  - [Examples](#examples)
+  - [Release](#release)
+
+## custom
+
+> [!NOTE]
+元のリポジトリの説明に追記した部分です。
+
+### .envファイルの作成
+
+.envファイルを.devcontainerディレクトリ配下に作成してください。
+ここでは、認証方法として「1. Username and Password」を使用しているので、それに必要な環境変数をセットします。
+
+```
+COMPOSE_PROJECT_NAME=<project_name>
+PORTS_NUM_ST1=<port_number>
+SNOWFLAKE_ROLE="<my_role>"
+SNOWFLAKE_WAREHOUSE="<my_warehouse>"
+SNOWFLAKE_USER="<my_user>"
+SNOWFLAKE_PASSWORD="<my_pw>"
+SNOWFLAKE_ACCOUNT_LOCATOR="<my_snowflake_account>"
+SNOWFLAKE_HOST="<my_snowflake_host>"
+```
+
+以下の変数は新たに追加したものです。
+
+- COMPOSE_PROJECT_NAME: プロジェクト名を指定します。コンテナ名もここで指定したものになります
+- PORTS_NUM_ST1: Streamlitを起動するためのポート番号を指定します。
+
+### devcontainer.jsonの編集
+
+拡張機能の部分は必要に応じて自分好みに編集してください。
+
+### コンテナの作成
+
+VSCodeであればコマンドパレットを開いて`Dev Containers: Reopen in Container`を選択すると作成できます。
+
+あるいは、.devcontainerディレクトリに移動し、ターミナルから`docker-compose up`でも起動できます。
+
+以降はコンテナ内での作業になります。
+[Streamlit App](#streamlit-app)の手順に従ってSemantic Model Generatorを起動してください。
 
 ## Setup
 

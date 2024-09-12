@@ -1,0 +1,18 @@
+version: '3'
+services:
+  streamlit-app:
+    container_name: ${COMPOSE_PROJECT_NAME}
+    build: .
+    ports:
+      - "${PORTS_NUM_ST1}:8501"
+    volumes:
+      - "../:/app"
+    environment:
+      - SNOWFLAKE_ROLE=${SNOWFLAKE_ROLE}
+      - SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE}
+      - SNOWFLAKE_USER=${SNOWFLAKE_USER}
+      - SNOWFLAKE_ACCOUNT_LOCATOR=${SNOWFLAKE_ACCOUNT_LOCATOR}
+      - SNOWFLAKE_HOST=${SNOWFLAKE_HOST}
+      - SNOWFLAKE_PASSWORD=${SNOWFLAKE_PASSWORD}
+    tty: true
+    stdin_open: true
